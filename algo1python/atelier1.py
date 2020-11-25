@@ -31,7 +31,7 @@ def sup_all_val(lst, val):
     return lst[:ins_idx]
 
 
-# crée une liste d'éléments aléatoires de taille `size` comprenant environ p% de valeurs `val`
+# crée une liste d'éléments aléatoires entre 0 et valrange, de taille `size`, comprenant environ p% de valeurs `val`
 def rand_list(size=10, p=50, val=0, val_range = 10):
     lst = list()
 
