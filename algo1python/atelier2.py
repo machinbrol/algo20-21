@@ -8,6 +8,31 @@ from time import time
 #  fonction qui regroupe les éléments d’un tableau composé exclusivement des entiers -1, 0 et 1 
 #  de façon à ce que tous les -1 soient au début, suivis des 0 et, finalement des 1
 def regroupe_1(tab):
+    negs = 0
+    zeros = 0
+
+    for i in range(len(tab)):
+        val = tab[i]
+        if val == -1:
+            negs += 1
+        elif val == 0:
+            zeros += 1
+    
+    pos = len(tab) - negs - zeros
+
+    for i in range(len(tab)):
+        if i < negs:
+            tab[i] = -1
+        elif i < negs + zeros:
+            tab[i] = 0
+        else:
+            tab[i] = 1
+
+
+
+# Ecrivez une fonction qui regroupe les éléments d’un tableau d’entiers de façon à ce que tous les négatifs 
+# soient au début (dans un ordre quelconque), suivis des 0 et, finalement des positifs
+def regroupe_2(tab):
     # trois partitions
     # indexes de fin des partitions
     part1 = 0
@@ -24,8 +49,6 @@ def regroupe_1(tab):
         elif tab[i] > 0 and i < part3:
             tab[part3], tab[i] = tab[i], tab[part3]
             part3 -= 1
-    
-        print(i, tab)
 
 
 if __name__ == "__main__":
@@ -38,5 +61,13 @@ if __name__ == "__main__":
     print(tab)
     regroupe_1(tab)
     print(tab)
+
+    print()
+    tab = [0,-7,0,0,5,9,-4,0,-2,-9,-4,-8,2]
+
+    print(tab)
+    regroupe_2(tab)
+    print(tab)
+
 
 
