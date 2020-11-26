@@ -18,8 +18,6 @@ def regroupe_1(tab):
         elif val == 0:
             zeros += 1
     
-    pos = len(tab) - negs - zeros
-
     for i in range(len(tab)):
         if i < negs:
             tab[i] = -1
