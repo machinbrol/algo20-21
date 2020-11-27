@@ -45,7 +45,7 @@ def regroupe_2(tab):
             tab[part1], tab[i] = tab[i], tab[part1]
             part1 += 1
 
-        elif tab[i] > 0 and i < part3: # s'arrêter au début de part3
+        elif tab[i] > 0: # s'arrêter au début de part3
             tab[part3], tab[i] = tab[i], tab[part3]
             part3 -= 1
         
