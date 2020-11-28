@@ -79,7 +79,7 @@ def regroupe_2(ls):
 
 # bi-partition autour d'un pivot
 # si plus grand que pivot, swap à droite et incrémente partition
-# sinon avance
+# sinon avance jusqu'à ce qu'on atteigne le début de la partition de droite
 def part2(ls, end, pivot):
     p = end # idx d'écriture
     i = 0 # idx de lecture
@@ -97,8 +97,8 @@ def part2(ls, end, pivot):
 def regroupe_3(ls):
     p =  len(ls)-1
 
-    p = part2(ls, p, 0) # > 0 à droite
-    part2(ls, p, -1) # > -1 à droite
+    p = part2(ls, p, 0) # (x > 0) à droite
+    part2(ls, p, -1) # (x > -1) à droite
 
 
 # ----- mesure de la complexité moyenne des deux fonctions -----
