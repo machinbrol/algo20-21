@@ -17,6 +17,8 @@ def get_list(size):
     return lst
 
 
+# ------- Exercice 4 -------
+
 #  fonction qui regroupe les éléments d’un tableau composé exclusivement des entiers -1, 0 et 1 
 #  de façon à ce que tous les -1 soient au début, suivis des 0 et, finalement des 1
 def regroupe_1(ls):
@@ -39,6 +41,7 @@ def regroupe_1(ls):
             ls[i] = 1
 
 
+# ------- Exercice 5 -------
 
 # Ecrivez une fonction qui regroupe les éléments d’un tableau d’entiers de façon à ce que tous les négatifs 
 # soient au début (dans un ordre quelconque), suivis des 0 et, finalement des positifs
@@ -71,6 +74,7 @@ def regroupe_2(ls):
         else: # on a un élément du milieu, on avance i
             i += 1
 
+
 # ---- version 2, moins 'tricky'  -----
 
 # bi-partition autour d'un pivot
@@ -99,8 +103,8 @@ def regroupe_3(ls):
 
 # ----- mesure de la complexité moyenne des deux fonctions -----
 
+
 def test_regroup(regroup, lsts):
-    
     for name, lst in lsts:
         l = lst[:]
 
@@ -109,6 +113,7 @@ def test_regroup(regroup, lsts):
         t = (time() - t0) * 1000
 
         print(name, t)
+
 
 def compare_2_et_3():
     l1 = get_list(10000)
@@ -120,7 +125,9 @@ def compare_2_et_3():
 
     print("----- regroup_2 -------")
     test_regroup(regroupe_2, lists)
+
     print()
+    
     print("----- regroup3 -------")
     test_regroup(regroupe_3, lists)
 
@@ -136,7 +143,7 @@ if __name__ == "__main__":
     l1 = [0, -7, 0, 0, 5, 9, -4, 0, -2, -9, -4, -8, 2]
     l2 = [-1, -1, 0, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1]
     l3 = [8, 0, -2, -3, 0, 4, 5, 0, -1, 11, 0, 9, 10]
-    l4 = [8, -1, -2, -3, 1, 4, 5, -2, -1, 11, 2, 9, -10]
+    l4 = [0, 0, 0, 0]
     l5 = [-5, -1, -2, -3, -1, -4]
 
     lists = [l1, l2, l3 ,l4, l5]
