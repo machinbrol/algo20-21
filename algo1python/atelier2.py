@@ -112,23 +112,27 @@ def test_regroup(regroup, lsts):
         regroup(l)
         t = (time() - t0) * 1000
 
-        print(name, t)
+        print("{:12}: {:.1f} msec".format(name, t))
 
 
 def compare_2_et_3():
     l1 = get_list(10000)
-    l2 = get_list(20000)
-    l4 = get_list(40000)
-    l8 = get_list(80000)
+    l2 = get_list(100000)
+    l4 = get_list(1000000)
+    l8 = get_list(10000000)
 
-    lists = [("l1", l1), ("l2", l2), ("l4", l4), ("l8", l8)]
+    lists = [("10 000", l1), ("100 000", l2), ("1000 000", l4), ("10 000 000", l8)]
 
-    print("----- regroup_2 -------")
+    print("----- regroup_1 (exercice 4) -------")
+    test_regroup(regroupe_1, lists)
+    print()
+    
+    print("----- regroup_2 (exercice 5) -------")
     test_regroup(regroupe_2, lists)
 
     print()
     
-    print("----- regroup3 -------")
+    print("----- regroup3 (exercice 5) -------")
     test_regroup(regroupe_3, lists)
 
 
