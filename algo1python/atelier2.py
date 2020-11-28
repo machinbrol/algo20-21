@@ -5,70 +5,76 @@ from random import randrange
 from time import time
 
 
-#  fonction qui regroupe les éléments d’un tableau composé exclusivement des entiers -1, 0 et 1 
+#  fonction qui regroupe les éléments d’un lsleau composé exclusivement des entiers -1, 0 et 1 
 #  de façon à ce que tous les -1 soient au début, suivis des 0 et, finalement des 1
-def regroupe_1(tab):
+def regroupe_1(ls):
     negs = 0
     zeros = 0
 
-    for i in range(len(tab)):
-        val = tab[i]
+    for i in range(len(ls)):
+        val = ls[i]
         if val == -1:
             negs += 1
         elif val == 0:
             zeros += 1
     
-    for i in range(len(tab)):
+    for i in range(len(ls)):
         if i < negs:
-            tab[i] = -1
+            ls[i] = -1
         elif i < negs + zeros:
-            tab[i] = 0
+            ls[i] = 0
         else:
-            tab[i] = 1
+            ls[i] = 1
 
 
 
-# Ecrivez une fonction qui regroupe les éléments d’un tableau d’entiers de façon à ce que tous les négatifs 
+# Ecrivez une fonction qui regroupe les éléments d’un lsleau d’entiers de façon à ce que tous les négatifs 
 # soient au début (dans un ordre quelconque), suivis des 0 et, finalement des positifs
-def regroupe_2(tab):
+def regroupe_2(ls):
     # trois partitions
     # indexes de fin des partitions
-    part1 = 0
-    part3 = len(tab) - 1
+    p1 = 0
+    p3 = len(ls) - 1
 
-    # si la valeur à l'index i est < 0, échange avec part1 et incrémente part1
-    # sinon, si valeur à i > 0 , échange avec part3 et décrémente part3
+    # si la valeur à l'index i est < 0, échange avec p1 et incrémente p1
+    # sinon, si valeur à i > 0 , échange avec p3 et décrémente p3
     # les 0 se retrouvent au centre
     i = 0
-    while i <= part3:
-        if tab[i] < 0:
-            tab[part1], tab[i] = tab[i], tab[part1]
-            part1 += 1
-
-        elif tab[i] > 0: # s'arrêter au début de part3
-            tab[part3], tab[i] = tab[i], tab[part3]
-            part3 -= 1
-        
-        i += 1
+    while i <= p3:
+        if ls[i] < 0:
+            if i == p1:
+                p1 += 1
+                i += 1
+            else:
+                ls[p1], ls[i] = ls[i], ls[p1]
+            
+        elif ls[i] > 0:
+            ls[p3], ls[i] = ls[i], ls[p3]
+            p3 -= 1
+        else:
+            i += 1
 
 
 if __name__ == "__main__":
-    tab = [0,-1,0,0,1,1,-1,0,-1,-1,-1,-1,1]
-    tab = [0,-1,0,0,1,1,-1,0,-1,-1,-1,-1,0]
-    tab = [0,-1,0,0,0,0,-1,0,-1,-1,-1,-1,0]
-    tab = [0,-1,0,0,1,1,-1,0,-1,-1,0,0,0]
-    tab = [-1,-1,0,0,1,1,-1,0,-1,-1,0,0,0]
+    ls = [0,-1,0,0,1,1,-1,0,-1,-1,-1,-1,1]
+    ls = [0,-1,0,0,1,1,-1,0,-1,-1,-1,-1,0]
+    ls = [0,-1,0,0,0,0,-1,0,-1,-1,-1,-1,0]
+    ls = [0,-1,0,0,1,1,-1,0,-1,-1,0,0,0]
+    #ls = [-1,-1,0,0,1,1,-1,0,-1,-1,0,0,0]
+    ls = [1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1]
 
-    print(tab)
-    regroupe_1(tab)
-    print(tab)
+    print(ls)
+    regroupe_1(ls)
+    print(ls)
 
     print()
-    tab = [0,-7,0,0,5,9,-4,0,-2,-9,-4,-8,2]
+    ls = [0,-7,0,0,5,9,-4,0,-2,-9,-4,-8,2]
+    ls = [1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1]
+    ls = [8, 0, -2, -3, 0, 4, 5, 0, -1, 11, 0, 9, -10]
 
-    print(tab)
-    regroupe_2(tab)
-    print(tab)
+    print(ls)
+    regroupe_2(ls)
+    print(ls)
 
 
 
