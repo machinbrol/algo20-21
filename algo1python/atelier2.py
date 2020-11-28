@@ -4,6 +4,8 @@
 from random import randrange
 from time import time
 
+def swap(ls, a, b):
+    ls[a], ls[b] = ls[b], ls[a]
 
 #  fonction qui regroupe les éléments d’un lsleau composé exclusivement des entiers -1, 0 et 1 
 #  de façon à ce que tous les -1 soient au début, suivis des 0 et, finalement des 1
@@ -36,22 +38,29 @@ def regroupe_2(ls):
     p1 = 0
     p3 = len(ls) - 1
 
-    # si la valeur à l'index i est < 0, échange avec p1 et incrémente p1
-    # sinon, si valeur à i > 0 , échange avec p3 et décrémente p3
-    # les 0 se retrouvent au centre
+    gauche = lambda x: x < 0
+    droite = lambda x: x > 0
+    # Si la valeur à l'index i est < 0, échange avec p1 et on incrément p1
+    #  sauf si i == p1,
+    #    alors on ne swap pas (inutile), on incrémente i et p1
+    # sinon, si valeur à i > 0 , échange avec p3 et décrément p3
+    # si c'est ni l'un ni l'autre (0), on avance
     i = 0
     while i <= p3:
-        if ls[i] < 0:
-            if i == p1:
-                p1 += 1
+        val = ls[i]
+
+        if droite(val):
+            swap(ls, i, p3)
+            p3 -= 1
+
+        elif gauche(val):
+            if i == p1: # dans ce cas, le négatif est déjà à sa place, pas de swap mais on avance i ET p1
                 i += 1
             else:
-                ls[p1], ls[i] = ls[i], ls[p1]
-            
-        elif ls[i] > 0:
-            ls[p3], ls[i] = ls[i], ls[p3]
-            p3 -= 1
-        else:
+                swap(ls, i, p1)
+            p1 += 1
+  
+        else: # on a un élément du milieu, on avance i
             i += 1
 
 
@@ -71,6 +80,8 @@ if __name__ == "__main__":
     ls = [0,-7,0,0,5,9,-4,0,-2,-9,-4,-8,2]
     ls = [1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1]
     ls = [8, 0, -2, -3, 0, 4, 5, 0, -1, 11, 0, 9, -10]
+    # ls = [8, -1, -2, -3, 1, 4, 5, -2, -1, 11, 2, 9, -10]
+    # ls = [-5, -1, -2, -3, 1, 4, 5, -2, -1, 11, 2, 9, -10]
 
     print(ls)
     regroupe_2(ls)
