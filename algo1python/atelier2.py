@@ -101,9 +101,61 @@ def regroupe_3(ls):
     part2(ls, p, -1) # (x > -1) à droite
 
 
-# ----- mesure de la complexité moyenne des deux fonctions -----
+# --- Version récursives du 2 ---
+
+def part3(ls, pos, left, right):
+    if pos <= right:
+        if ls[pos] < 0:
+            if pos == left:
+                pos += 1
+            else:
+                swap(ls, pos, left)
+            left += 1
+        elif ls[pos] > 0:
+            swap(ls, pos, right)
+            right -= 1
+        else:
+            pos += 1
+
+        part3(ls, pos, left, right)
+    
+
+def regroup_4(ls):
+    part3(ls, 0, 0, len(ls)-1)
 
 
+# --- Version récursives du 3 ---
+
+# aller - retour
+# parcours d'abord vers la droite et swap le > 0 sur la droite
+# puis revient et swap les -1 sur la gauche
+def part3_2(ls, pos, right):
+    left = 0
+
+    if pos < right:
+        if ls[pos] > 0:
+            swap(ls, pos, right)
+            right -= 1
+        else:
+            pos += 1
+        
+        pos, left = part3_2(ls, pos, right)
+
+    if pos > left:
+        if ls[pos] < 0:
+            swap(ls, pos, left)
+            left += 1
+        else:
+            pos -= 1
+    
+    return pos, left
+
+    
+def regroup_5(ls):
+    part3_2(ls, 0, len(ls)-1)
+
+
+# ----- mesure du temps d'exécution de regoup_2 et regroup_3 -----
 def test_regroup(regroup, lsts):
     for name, lst in lsts:
         l = lst[:]
@@ -149,8 +201,10 @@ if __name__ == "__main__":
     l3 = [8, 0, -2, -3, 0, 4, 5, 0, -1, 11, 0, 9, 10]
     l4 = [0, 0, 0, 0]
     l5 = [-5, -1, -2, -3, -1, -4]
+    l6 = []
+    l7 = [-1]
 
-    lists = [l1, l2, l3 ,l4, l5]
+    lists = [l1, l2, l3 ,l4, l5, l6, l7]
 
     print()
 
@@ -172,7 +226,28 @@ if __name__ == "__main__":
         print()
     
     print()
-    compare_2_et_3()
+    
+    print("test regroup_4")
+    for lst in lists:
+        ls = lst[:]
+        print(ls)
+        regroup_4(ls)
+        print(ls)
+        print()
+    
+    print()
+
+    print("test regroup_5")
+    for lst in lists:
+        ls = lst[:]
+        print(ls)
+        regroup_5(ls)
+        print(ls)
+        print()
+    
+    print()
+    
+    #compare_2_et_3()
 
 
     
