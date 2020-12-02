@@ -65,7 +65,10 @@ def time_sup_all_val(lst_size, nbr_runs=1):
 
 
 # effectue nbr_runs de `time_sup_all_val`
-def time_sup_all_val_all_sizes(sizes = [10000, 20000, 40000, 80000], nbr_runs = 4):
+def time_sup_all_val_all_sizes(sizes=None, nbr_runs=4):
+    if sizes is None:
+        sizes = [10000, 20000, 40000, 80000]
+        
     for n in range(nbr_runs):
         print(f"--- run {n} ---")
 
