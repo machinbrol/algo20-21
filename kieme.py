@@ -5,88 +5,69 @@ import random
 from time import time
 
 
-def swap(ls, a, b):
-    ls[a], ls[b] = ls[b], ls[a]
+def swap(ls, i, j):
+    ls[i], ls[j] = ls[j], ls[i]
 
 
-def kieme(ls, start, end, target):
-    pivot = start
-    i = pivot + 1 # idx de lecture
-    
-    while i <= end:
-        if ls[i] <= ls[pivot]:
-            swap(ls, pivot, pivot + 1) # déplacer le pivot à droite en swap avec le suivant
-            if i > pivot + 1:
-                swap(ls, pivot, i) # si c'est pas le suivant (déjà fait) qui doit être swap
-            pivot += 1
-        i += 1
-    
-    if pivot == target:
-        return ls[pivot]
+# partitionnne la sous-list start-end de ls en
+# utilisant end-1 comme pivot
 
-    if pivot < target:
-        return kieme(ls, pivot + 1, end, target)
+def partition(ls, start, end):
+    if end == start:
+        return start
+
+    pivot = end - 1
+    droite = pivot
+    gauche = start
+
+    while gauche < droite:
+        if ls[gauche] > ls[pivot]:
+            swap(ls, gauche, droite-1)
+            droite -= 1
+        else:
+            gauche += 1
+
+    swap(ls, droite, pivot)
+
+    return droite
+
+
+def kieme_aux(ls, start, end, k):
+    pivot = partition(ls, start, end)
+
+    if pivot == k:
+        return ls[k]
+    elif pivot < k:
+        return kieme_aux(ls, pivot+1, end, k)
     else:
-        return kieme(ls, start, pivot, target)
+        return kieme_aux(ls, start, pivot, k)
 
 
-#########################
-## Quick Sort (copié de https://www.geeksforgeeks.org/python-program-for-quicksort/)
+def kieme(ls, k):
+    idx = k - 1
+    if idx < 0 or idx > len(ls) - 1:
+        raise Exception("Hors des limites de la liste")
 
- 
-def partition(arr, low, high):
-    i = low-1         # index of smaller element
-    pivot = arr[high]     # pivot
- 
-    for j in range(low, high):
- 
-        # If current element is smaller than or
-        # equal to pivot
-        if arr[j] <= pivot:
- 
-            # increment index of smaller element
-            i = i+1
-            arr[i], arr[j] = arr[j], arr[i]
- 
-    arr[i+1], arr[high] = arr[high], arr[i+1]
+    # k-1 pcq indexé à 0
+    return kieme_aux(ls, 0, len(ls), idx)
 
-    return (i+1)
- 
- 
-def quickSort(arr, low, high):
-    if len(arr) == 1:
-        return arr
 
-    if low < high:
- 
-        # pi is partitioning index, arr[p] is now
-        # at right place
-        pi = partition(arr, low, high)
- 
-        # Separately sort elements before
-        # partition and after partition
-        quickSort(arr, low, pi-1)
-        quickSort(arr, pi+1, high)
+# ------------- TESTS ---------------
 
-################## TEST ####################
+# ls1 = [5, 3, 2, 6, 7, 10, 9, 1, 4, 8]
 
-ls1 = [5, 3, 2, 6, 7, 9, 0, 1, 4, 8]
-
-ls1 = [i for i in range(100000)]
+taille = 10000
+ieme = int(taille/2)
+ls1 = [i for i in range(1, taille + 1)]
 random.shuffle(ls1)
 
-ls2 = ls1[:]
+nbr = 100
+i = 0
+res = kieme(ls1, ieme)
 
-t0 = time()
-res = kieme(ls1, 0, len(ls1)-1, 22)
-print(time() - t0)
+while res == ieme and i < nbr:
+    random.shuffle(ls1)
+    res = kieme(ls1, ieme)
+    i += 1
+
 print(res)
-
-t0 = time()
-quickSort(ls2, 0, len(ls2)-1)
-res = ls2[22]
-print(time() - t0)
-print(res)
-
-
-
