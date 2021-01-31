@@ -22,18 +22,20 @@
 #    | otherwise = maxAux xs m
 
 
-def maxAux(ls, start, max):
+def max_aux(ls, start, max):
     if start >= len(ls):
         return max
   
     if ls[start] > max:
         max = ls[start]
 
-    return maxAux(ls, start+1, max)
+    return max_aux(ls, start + 1, max)
 
-def max(ls):
+
+def find_max(ls):
     if not len(ls):
         raise Exception("Liste vide")
-    return maxAux(ls, 1, ls[0])
+    return max_aux(ls, 1, ls[0])
 
-print(max([1, 8, 5, 9, 10]))
+
+print(find_max([1, 8, 5, 9, 10]))

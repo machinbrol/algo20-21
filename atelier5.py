@@ -2,19 +2,20 @@
 # -*- coding: utf-8 -*-
 
 import random
-from time import time
 
 
 def swap(ls, i, j):
     ls[i], ls[j] = ls[j], ls[i]
 
-
 # partitionnne la sous-list start-end de ls en
-# utilisant end-1 comme pivot
-
+# prenant un pivot au hasartd
 def partition(ls, start, end):
     if end == start:
         return start
+
+    # choix pivot au hasard et placement à la fin de la liste
+    rand = random.choice(range(start, end))
+    swap(ls, rand, end-1)
 
     pivot = end - 1
     droite = pivot
@@ -44,12 +45,13 @@ def kieme_aux(ls, start, end, k):
 
 
 def kieme(ls, k):
-    idx = k - 1
-    if idx < 0 or idx > len(ls) - 1:
-        raise Exception("Hors des limites de la liste")
-
     # k-1 pcq indexé à 0
-    return kieme_aux(ls, 0, len(ls), idx)
+    kie = k - 1
+
+    if kie < 0 or kie > len(ls) - 1:
+        raise Exception("Out of bounds")
+
+    return kieme_aux(ls, 0, len(ls), kie)
 
 
 # ------------- TESTS ---------------
@@ -61,7 +63,7 @@ ieme = int(taille/2)
 ls1 = [i for i in range(1, taille + 1)]
 random.shuffle(ls1)
 
-nbr = 100
+nbr = 1
 i = 0
 res = kieme(ls1, ieme)
 

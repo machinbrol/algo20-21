@@ -24,4 +24,4 @@ def fusion(lst1, lst2):
 
 
 if __name__ == "__main__":
-    print(fusion([1,2,4,4,8], [3,5,6,9]))
+    print(fusion([1, 2, 4, 4, 8], [3, 5, 6, 9]))
